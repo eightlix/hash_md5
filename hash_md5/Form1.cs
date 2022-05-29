@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using hash_md5;
 using System.IO;
-using MyMD5;
+using MyHash;
 namespace hash_md5
 
 {
@@ -31,7 +31,7 @@ namespace hash_md5
                 {
                     using(StreamReader sr = new StreamReader(path))
                     {
-                        hashedText.Text = MyMD5.MyMD5.GetHash(sr.ToString());
+                        hashedText.Text = MyHash.MyMD5.GetHash(sr.ToString());
                     }
                 }
                 catch(Exception ex)
@@ -47,7 +47,7 @@ namespace hash_md5
                 }
                 else
                 {
-                    hashedText.Text = MyMD5.MyMD5.GetHash(sourceText.Text);
+                    hashedText.Text = MyHash.MyMD5.GetHash(sourceText.Text);
                 }
             }
             
@@ -60,7 +60,7 @@ namespace hash_md5
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 path = ofd.FileName;
-                label2.Text = $"the path is: {ofd.FileName}";
+                pathOfFile.Text = $"the path is: {ofd.FileName}";
                 sourceText.Enabled = false;
                 sourceText.Text = "click restore path to be able to write here";
             }
@@ -69,9 +69,24 @@ namespace hash_md5
         private void reset_Click(object sender, EventArgs e)
         {
             sourceText.Text = "";
-            label2.Text = "the path is: none";
+            pathOfFile.Text = "the path is: none";
             path = "path";
             sourceText.Enabled = true;
+        }
+
+        private void copy_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(hashedText.Text);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            hashedText.Enabled = false;
+            hashedText.ReadOnly = true;
+            pathOfFile.Enabled = false;
+            pathOfFile.ReadOnly = true;
+            hashedText.TextAlign = HorizontalAlignment.Center;
+            sourceText.ScrollBars = ScrollBars.Both;
         }
     }
 }

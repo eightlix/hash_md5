@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 
 
-namespace MyMD5
+namespace MyHash
 {
     public static class MyMD5
 	{
